@@ -68,7 +68,7 @@ git clone https://github.com/urmee04/secure-user-portal-bcrypt-jwt.git
 
 - **Login**
 
-`POST http://localhost:5000/api/users/login`
+`POST http://localhost:3000/api/users/login`
 `Content-Type: application/json`
 ```bash
 {
