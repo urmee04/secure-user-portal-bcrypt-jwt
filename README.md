@@ -95,5 +95,14 @@ secure-user-portal/
 ├── package.json
 └── package-lock.json
 ```
+---
+#### References
+
+My primary resource for completing the lab was the code from our class lessons and materials. Additionally, I used the resources mentioned below to deepen my understanding of the concepts and code flow
+
+- [JasonWebToken](https://www.npmjs.com/package/jsonwebtoken)
+- [bcrypt](https://www.geeksforgeeks.org/node-js/npm-bcrypt/)
+- [mongoDB Bootcamp](https://generalmotors.udemy.com/course/nodejs-express-mongodb-bootcamp/learn/lecture/15065064#overview)
+
 
 
