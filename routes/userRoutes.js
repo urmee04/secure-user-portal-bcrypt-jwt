@@ -1,8 +1,11 @@
-//Task-2: Registration Endpoint
-
 const express = require("express");
 const User = require("../models/User");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
+
+//-----------------------------
+//Task-2: Registration Endpoint
+//-----------------------------
 
 //POST/ api/users/register
 
@@ -28,6 +31,50 @@ router.post("/register", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Server Error" });
+  }
+});
+
+//-----------------------
+// Task-3: Login Endpoint
+//-----------------------
+
+//POST /api/users/login
+
+router.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    //check if user exists
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ error: "Incorrect email or password" });
+    }
+
+    //check password
+    const isMatch = await user.isCorrectPassword(password);
+    if (!isMatch) {
+      return res.status(401).json({ error: "Incorrect email or password" });
+    }
+
+    //create JWT
+    const jwtToken = jwt.sign(
+      { _id: user._id, username: user.username },
+      process.env.JWT_SECRET,
+      { expiresIn: "2h" }
+    );
+
+    //respond with token and user data
+    res.json({
+      jwtToken,
+      user: {
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+      },
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
   }
 });
 
